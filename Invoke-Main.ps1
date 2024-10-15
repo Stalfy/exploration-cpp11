@@ -9,7 +9,7 @@ process
     $invokeLocation = $($pwd.Path)
     $buildRoot = $PSScriptRoot
     $buildOutput = [IO.Path]::Combine($buildRoot, "out", "sources")
-    $exeLocation = [IO.Path]::Combine($buildOutput, "Sample.exe")
+    $exeLocation = [IO.Path]::Combine($buildOutput, "exploration.exe")
 
     try 
     {
