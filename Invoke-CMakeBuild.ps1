@@ -1,4 +1,5 @@
-param ()
+[CmdletBinding()]
+param ([switch]$Clean = $true)
 
 process 
 {
@@ -8,6 +9,7 @@ process
     $invokeLocation = $($pwd.Path)
     $buildRoot = $PSScriptRoot
     $buildOutput = [IO.Path]::Combine($buildRoot, "out")
+    $buildOutputAlt = [IO.Path]::Combine($buildRoot, "build")
 
     try 
     {
@@ -15,7 +17,12 @@ process
         {
             Remove-Item -Recurse -Force $buildOutput | Out-Null
         }
-        
+
+        if (Test-Path $buildOutputAlt)
+        {
+            Remove-Item -Recurse -Force $buildOutputAlt | Out-Null
+        }
+
         New-Item $buildOutput -Type Directory | Out-Null
         while (-not $(Test-Path $buildOutput)) { }
         cd $buildOutput

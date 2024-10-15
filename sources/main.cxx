@@ -1,9 +1,8 @@
-#include "greeter.hxx"
+#include "ApplicationHost.hxx"
 
 int main()
 {
-    exploration::hosting::Greeter greeter;
-    greeter.greet("World");
-
+    exploration::hosting::ApplicationHost host;
+    host.run();
     return 0;
 }
