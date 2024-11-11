@@ -1,5 +1,5 @@
-#ifndef HOSTING_GREETER_HXX_
-#define HOSTING_GREETER_HXX_
+#ifndef SERVICES_MANAGED_LIFECYCLE_SERVICE_HXX_
+#define SERVICES_MANAGED_LIFECYCLE_SERVICE_HXX_
 
 // ############################################################################
 // Windows build management
@@ -17,6 +17,7 @@
 // ############################################################################
 // Includes
 // ############################################################################
+#include <condition_variable>
 #include <iostream>
 #include <string>
 
@@ -29,19 +30,21 @@
 // ############################################################################
 
 namespace exploration {
-namespace hosting {
+namespace services {
 
-class DECLSPEC Greeter final
+class DECLSPEC ManagedLifecycleService
 {
     public:
-        // Constructors
-        Greeter();
-
         // Destructors
-        ~Greeter();
+        virtual ~ManagedLifecycleService() {}
 
         // Functions
-        void greet(std::string who);
+        virtual void starting() = 0;
+        virtual void start() = 0;
+        virtual void started() = 0;
+        virtual void stopping() = 0;
+        virtual void stop() = 0;
+        virtual void stopped() = 0;
 };
 
 }}

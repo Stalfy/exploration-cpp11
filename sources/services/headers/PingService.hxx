@@ -1,5 +1,5 @@
-#ifndef HOSTING_GREETER_HXX_
-#define HOSTING_GREETER_HXX_
+#ifndef SERVICES_PING_SERVICE_HXX_
+#define SERVICES_PING_SERVICE_HXX_
 
 // ############################################################################
 // Windows build management
@@ -17,8 +17,11 @@
 // ############################################################################
 // Includes
 // ############################################################################
+#include <condition_variable>
 #include <iostream>
 #include <string>
+
+#include "ManagedThreadService.hxx"
 
 // ############################################################################
 // Usings
@@ -29,19 +32,24 @@
 // ############################################################################
 
 namespace exploration {
-namespace hosting {
+namespace services {
 
-class DECLSPEC Greeter final
+class DECLSPEC PingService final : ManagedThreadService
 {
     public:
         // Constructors
-        Greeter();
+        PingService();
 
         // Destructors
-        ~Greeter();
+        ~PingService();
 
         // Functions
-        void greet(std::string who);
+        void starting() override;
+        void start() override;
+        void started() override;
+        void stopping() override;
+        void stop() override;
+        void stopped() override;
 };
 
 }}

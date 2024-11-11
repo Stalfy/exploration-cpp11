@@ -49,13 +49,23 @@ ApplicationHost::~ApplicationHost() {}
 // Public Functions
 // ----------------------------------------------------------------------------
 void ApplicationHost::run() {
-    exploration::hosting::Greeter greeter;
+    Greeter greeter;
     greeter.greet("World");
 
-    std::cout << "Send a termination signal to exit." << std::endl;
+    dependency_injection::InstancesManager manager;
+    services::PingService pingService = manager.borrowPingService();
 
-    std::unique_lock<std::mutex> lk(exploration::hosting::_lifecycle::lifecycleMutex);
-    exploration::hosting::_lifecycle::lifecycleConditionVariable.wait(lk, [this]{ return exploration::hosting::_lifecycle::terminationRequested; });
+    pingService.starting();
+    pingService.start();
+    pingService.started();
+
+    std::unique_lock<std::mutex> lk(_lifecycle::lifecycleMutex);
+    std::cout << "Send a termination signal to exit." << std::endl;
+    _lifecycle::lifecycleConditionVariable.wait(lk, [this]{ return _lifecycle::terminationRequested; });
+
+    pingService.stopping();
+    pingService.stop();
+    pingService.stopped();
 
     std::cout << "Bye" << std::endl;
 }

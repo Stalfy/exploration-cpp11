@@ -2,6 +2,8 @@
 add_executable(${PROJECT_COMPILE_NAME} main.cxx)
 
 # Add the subdirectories.
+add_subdirectory(services)
+add_subdirectory(dependency_injection)
 add_subdirectory(hosting)
 
 # Define the compilation flag indicating that the projet is being built for windows.

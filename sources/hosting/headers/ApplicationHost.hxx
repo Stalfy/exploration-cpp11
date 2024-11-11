@@ -21,6 +21,7 @@
 #include <iostream>
 #include <string>
 
+#include "InstancesManager.hxx"
 #include "Greeter.hxx"
 
 // ############################################################################
@@ -34,7 +35,7 @@
 namespace exploration {
 namespace hosting {
 
-class DECLSPEC ApplicationHost
+class DECLSPEC ApplicationHost final
 {
     public:
         // Constructors

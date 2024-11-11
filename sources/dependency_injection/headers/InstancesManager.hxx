@@ -1,5 +1,5 @@
-#ifndef HOSTING_GREETER_HXX_
-#define HOSTING_GREETER_HXX_
+#ifndef DI_INSTANCES_MANAGER_HXX_
+#define DI_INSTANCES_MANAGER_HXX_
 
 // ############################################################################
 // Windows build management
@@ -17,8 +17,11 @@
 // ############################################################################
 // Includes
 // ############################################################################
+#include <condition_variable>
 #include <iostream>
 #include <string>
+
+#include "PingService.hxx"
 
 // ############################################################################
 // Usings
@@ -29,19 +32,37 @@
 // ############################################################################
 
 namespace exploration {
-namespace hosting {
+namespace dependency_injection {
 
-class DECLSPEC Greeter final
+namespace _nested_classes {
+    class Singletons {
+        public:
+            // Constructors
+            Singletons();
+
+            // Destructors
+            ~Singletons();
+
+            // Members
+            services::PingService pingService;
+    };
+}
+
+class DECLSPEC InstancesManager
 {
+
     public:
         // Constructors
-        Greeter();
+        InstancesManager();
 
         // Destructors
-        ~Greeter();
-
+        ~InstancesManager();
+    
         // Functions
-        void greet(std::string who);
+        services::PingService borrowPingService();
+
+    private:
+        _nested_classes::Singletons _singletons;
 };
 
 }}

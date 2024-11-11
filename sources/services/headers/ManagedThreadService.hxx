@@ -1,5 +1,5 @@
-#ifndef HOSTING_GREETER_HXX_
-#define HOSTING_GREETER_HXX_
+#ifndef SERVICES_MANAGED_THREAD_SERVICE_HXX_
+#define SERVICES_MANAGED_THREAD_SERVICE_HXX_
 
 // ############################################################################
 // Windows build management
@@ -17,8 +17,11 @@
 // ############################################################################
 // Includes
 // ############################################################################
+#include <condition_variable>
 #include <iostream>
 #include <string>
+
+#include "ManagedLifecycleService.hxx"
 
 // ############################################################################
 // Usings
@@ -29,19 +32,13 @@
 // ############################################################################
 
 namespace exploration {
-namespace hosting {
+namespace services {
 
-class DECLSPEC Greeter final
+class DECLSPEC ManagedThreadService : ManagedLifecycleService
 {
     public:
-        // Constructors
-        Greeter();
-
         // Destructors
-        ~Greeter();
-
-        // Functions
-        void greet(std::string who);
+        virtual ~ManagedThreadService() {}
 };
 
 }}
